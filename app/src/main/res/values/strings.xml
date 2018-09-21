@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">InWords</string>
+    <integer name="com_vk_sdk_AppId">6695423</integer>
+    <string name="title_activity_login">Войти</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Пароль</string>
+    <string name="action_sign_in">Войти </string>
+    <string name="action_sign_in_short">Зарегистрироваться</string>
+    <string name="error_invalid_email">Адрес почты не правильный</string>
+    <string name="error_invalid_password">Пароль слишком короткий</string>
+    <string name="error_incorrect_password">Пароль не правильный</string>
+    <string name="error_field_required">Напишите адрес почты</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="action_log_in">Регистрация</string>
+    <string name="login_trow"><b>ВОЙТИ ЧЕРЕЗ</b></string>
+    <string name="login_continue">ИЛИ <u>ПРОДОЛЖИТЬ</u> БЕЗ ВХОДА</string>
+    <string name="title"><b>INWORDS</b></string>
+</resources>
