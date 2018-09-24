@@ -5,4 +5,5 @@
     <color name="colorAccent">#FF4081</color>
     <color name="backGroud">#FC4442</color>
     <color name="textColor">#ffffff</color>
+    <color name="foreground_serch">#FCDBD6</color>
 </resources>
