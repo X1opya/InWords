@@ -20,9 +20,6 @@ public class MainActivity extends AppCompatActivity {
     CurrentUser user;
     UserLocalData localData;
 
-    int huy;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
