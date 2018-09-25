@@ -1,11 +1,8 @@
-package com.x1opya.inwords.data;
+package com.x1opya.inwords.Login.Data;
 
 import android.content.Context;
 import android.util.Log;
 
-import com.x1opya.inwords.Login.CurrentUser;
-
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;

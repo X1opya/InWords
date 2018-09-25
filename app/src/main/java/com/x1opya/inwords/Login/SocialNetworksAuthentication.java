@@ -1,5 +1,4 @@
 package com.x1opya.inwords.Login;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -14,14 +13,14 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKScope;
 import com.vk.sdk.VKSdk;
 import com.vk.sdk.api.VKError;
-import com.x1opya.inwords.data.DataBaseManager;
-import com.x1opya.inwords.data.UserLocalData;
+import com.x1opya.inwords.Login.Data.CurrentUser;
+import com.x1opya.inwords.Login.Data.UserLoginManager;
+import com.x1opya.inwords.Login.Data.UserLocalData;
 
 public class SocialNetworksAuthentication extends LoginActivity implements UserType {
     private UserLoginTask mAuthTask = null;
@@ -130,11 +129,11 @@ public class SocialNetworksAuthentication extends LoginActivity implements UserT
 
         private int typeAuth;
         CurrentUser user;
-        DataBaseManager manger;
+        UserLoginManager manger;
         UserLoginTask(int requestTypeAuth, String userId) {
             typeAuth = requestTypeAuth;
             user = new CurrentUser(userId);
-            manger = new DataBaseManager(getBaseContext());
+            manger = new UserLoginManager(getBaseContext());
         }
 
         @Override

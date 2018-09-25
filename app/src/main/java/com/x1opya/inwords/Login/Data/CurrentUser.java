@@ -1,4 +1,4 @@
-package com.x1opya.inwords.Login;
+package com.x1opya.inwords.Login.Data;
 
 public class CurrentUser {
     private String id;

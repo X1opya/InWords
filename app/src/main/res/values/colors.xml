@@ -6,4 +6,5 @@
     <color name="backGroud">#FC4442</color>
     <color name="textColor">#ffffff</color>
     <color name="foreground_serch">#FCDBD6</color>
+    <color name="item_bg">#FEF1EB</color>
 </resources>

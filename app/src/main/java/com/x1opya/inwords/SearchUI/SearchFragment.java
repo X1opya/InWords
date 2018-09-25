@@ -1,6 +1,5 @@
-package com.x1opya.inwords;
+package com.x1opya.inwords.SearchUI;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,8 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.SearchView;
-import android.widget.TextView;
+import android.widget.ListView;
+
+import com.x1opya.inwords.R;
+import com.x1opya.inwords.SearchUI.Data.Word;
+import com.x1opya.inwords.SearchUI.Data.WordsManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -23,6 +28,10 @@ import android.widget.TextView;
  * create an instance of this fragment.
  */
 public class SearchFragment extends Fragment {
+
+    SearchAdapter adapter;
+    ListView listView;
+    List<Word> list;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -55,7 +64,12 @@ public class SearchFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         EditText sv = view.findViewById(R.id.search_view);
-        final TextView t = view.findViewById(R.id.text);
+        final WordsManager wordsManager = new WordsManager(getActivity().getBaseContext());
+        listView = view.findViewById(R.id.list);
+        list = new ArrayList<>();
+        adapter = new SearchAdapter(getActivity().getBaseContext(), R.layout.search_item,list);
+        listView.setAdapter(adapter);
+
         sv.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -67,12 +81,18 @@ public class SearchFragment extends Fragment {
                 // UTF-16
                 //Индекс в кодировке A(английская) = 10, Z = 35
                 //Русские символы все = -1
+                //Если ввод начался с английской буквы - обращайемся к поиску английских слов
+                adapter.clear();
+                boolean isEng = false;
                 if(!charSequence.toString().isEmpty() && Character.getNumericValue(charSequence.toString().charAt(0))>0)
-                {//Если ввод начался с английской буквы - обращайемся к поиску английских слов
-                    t.setText("Английйские символы, пидарас!!!, ты что, ебать, за госдеп?!");
-                }
-                else{//русских
-                    t.setText("Русские");
+                    isEng = true;
+                else//русских
+                    isEng=false;
+
+                List<Word> newList = wordsManager.getWordsToSearch(charSequence.toString(),isEng);//получаем список имеющихся слов с базы
+                if(newList!=null) {
+                    adapter.addAll(newList);
+                    adapter.notifyDataSetChanged();
                 }
 
             }

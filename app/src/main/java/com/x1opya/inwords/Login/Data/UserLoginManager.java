@@ -1,4 +1,4 @@
-package com.x1opya.inwords.data;
+package com.x1opya.inwords.Login.Data;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,22 +7,22 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.x1opya.inwords.Login.CurrentUser;
+import com.x1opya.inwords.data.BaseHelper;
 
-public class DataBaseManager {
+public class UserLoginManager {
 
     SQLiteDatabase db;
     BaseHelper helper;
     UserLocalData data;
 
-    public DataBaseManager(Context context) {
+    public UserLoginManager(Context context) {
         helper = new BaseHelper(context);
         db = helper.getWritableDatabase();
         data= new UserLocalData(context);
     }
 
     private CurrentUser registration(String id){
-        Log.println(Log.ASSERT,DataBaseManager.class.toString(),"Юзер зарегистрировался: "+id);
+        Log.println(Log.ASSERT,UserLoginManager.class.toString(),"Юзер зарегистрировался: "+id);
         ContentValues addedUser = new ContentValues();
         addedUser.put("soc_id",id);
         db.insert("users", null,addedUser);
@@ -31,7 +31,7 @@ public class DataBaseManager {
     }
 
     private CurrentUser login(String id, Cursor user){
-        Log.println(Log.ASSERT,DataBaseManager.class.toString(),"Юзер залогинелся");
+        Log.println(Log.ASSERT,UserLoginManager.class.toString(),"Юзер залогинелся");
         db.close();
         user.close();
         return new CurrentUser(id);
@@ -56,7 +56,7 @@ public class DataBaseManager {
     //существует пользователь или нет
     private ResultQuery isUserExist(String id){
         Cursor user = db.rawQuery("select * from users where soc_id = "+id,null);
-        Log.println(Log.ASSERT,DataBaseManager.class.toString(),"Существует ли пользователь в базе:" + user.moveToFirst());
+        Log.println(Log.ASSERT,UserLoginManager.class.toString(),"Существует ли пользователь в базе:" + user.moveToFirst());
         ResultQuery res = new ResultQuery();
         if(user.moveToFirst()){
             res.exist = true;
