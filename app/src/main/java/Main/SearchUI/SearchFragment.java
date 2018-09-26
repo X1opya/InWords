@@ -1,4 +1,4 @@
-package com.x1opya.inwords.SearchUI;
+package Main.SearchUI;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,8 +12,10 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.x1opya.inwords.R;
-import com.x1opya.inwords.SearchUI.Data.Word;
-import com.x1opya.inwords.SearchUI.Data.WordsManager;
+
+import Main.WordsListAdapter;
+import Main.SearchUI.Data.Word;
+import Main.SearchUI.Data.WordsManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +31,7 @@ import java.util.List;
  */
 public class SearchFragment extends Fragment {
 
-    SearchAdapter adapter;
+    WordsListAdapter adapter;
     ListView listView;
     List<Word> list;
 
@@ -63,11 +65,17 @@ public class SearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
+        initSerchAndList(view);
+        // Inflate the layout for this fragment
+        return view;
+    }
+
+    private void initSerchAndList(View view){
         EditText sv = view.findViewById(R.id.search_view);
         final WordsManager wordsManager = new WordsManager(getActivity().getBaseContext());
         listView = view.findViewById(R.id.list);
         list = new ArrayList<>();
-        adapter = new SearchAdapter(getActivity().getBaseContext(), R.layout.search_item,list);
+        adapter = new WordsListAdapter(getActivity().getBaseContext(), R.layout.search_item,list);
         listView.setAdapter(adapter);
 
         sv.addTextChangedListener(new TextWatcher() {
@@ -102,10 +110,7 @@ public class SearchFragment extends Fragment {
 
             }
         });
-        // Inflate the layout for this fragment
-        return view;
     }
-
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated

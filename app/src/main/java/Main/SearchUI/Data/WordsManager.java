@@ -1,4 +1,4 @@
-package com.x1opya.inwords.SearchUI.Data;
+package Main.SearchUI.Data;
 
 import android.content.Context;
 import android.database.Cursor;

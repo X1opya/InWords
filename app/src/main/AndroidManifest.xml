@@ -21,7 +21,7 @@
             android:name="com.vk.sdk.VKServiceActivity"
             android:label="ServiceActivity"
             android:theme="@style/VK.Transparent" />
-        <activity android:name=".Main_tab_activity">
+        <activity android:name="Main.MainTabActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

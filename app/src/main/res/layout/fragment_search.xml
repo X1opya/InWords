@@ -4,17 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".SearchUI.SearchFragment"
+    tools:context="Main.SearchUI.SearchFragment"
     android:background="@color/backGroud">
 
         <EditText
+            android:padding="10dp"
             android:hint="Поиск..."
             android:id="@+id/search_view"
             android:layout_margin="15dp"
-            android:background="@color/foreground_serch"
+            android:background="@drawable/corners"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,10 +25,18 @@
         android:layout_margin="15dp"
         android:background="@color/foreground_serch">
 
-        <ListView
-            android:id="@+id/list"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <ListView
+                android:id="@+id/list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:dividerHeight="5dp"
+                android:padding="5dp" />
+        </ScrollView>
     </LinearLayout>
 
 </LinearLayout>

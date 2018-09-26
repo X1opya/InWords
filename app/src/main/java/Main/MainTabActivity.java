@@ -1,4 +1,4 @@
-package com.x1opya.inwords;
+package Main;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -21,12 +21,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.vk.sdk.VKSdk;
 import com.x1opya.inwords.Login.Data.CurrentUser;
 import com.x1opya.inwords.Login.SocialNetworksAuthentication;
-import com.x1opya.inwords.SearchUI.SearchFragment;
+import com.x1opya.inwords.R;
+import Main.SearchUI.SearchFragment;
 import com.x1opya.inwords.Login.Data.UserLocalData;
 
 import java.io.File;
 
-public class Main_tab_activity extends AppCompatActivity {
+public class MainTabActivity extends AppCompatActivity {
 
     UserLocalData localData;
     CurrentUser user;
