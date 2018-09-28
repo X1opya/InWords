@@ -1,4 +1,4 @@
-package Main;
+package com.x1opya.inwords.Main.SearchUI;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -10,7 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.x1opya.inwords.R;
-import Main.SearchUI.Data.Word;
+import com.x1opya.inwords.Main.Data.Word;
 
 import java.util.List;
 

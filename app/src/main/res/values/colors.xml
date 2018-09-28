@@ -3,8 +3,9 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="backGroud">#212832</color>
+    <color name="backGroud">#212831</color>
     <color name="textColor">#ffffff</color>
-    <color name="foreground_serch">#7971ea</color>
-    <color name="item_bg">#ada0ff</color>
+    <color name="hintColor">#d1d1d1</color>
+    <color name="foreground_serch">#49505a</color>
+    <color name="item_bg">#757c87</color>
 </resources>

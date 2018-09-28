@@ -1,4 +1,4 @@
-package Main.SearchUI.Data;
+package com.x1opya.inwords.Main.Data;
 
 public class Word {
     private String word;

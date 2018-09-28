@@ -1,4 +1,4 @@
-package Main.SearchUI.Data;
+package com.x1opya.inwords.Main.Data;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -27,7 +27,7 @@ public class WordsManager {
         if(isEngSymbols) field = "word";
         else field = "translate";
         if(part.isEmpty()) return null;
-        Cursor cursor = db.rawQuery("SELECT * FROM words WHERE " + field +" LIKE '%"+part+"%'", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM words WHERE " + field +" LIKE '"+part+"%' LIMIT 20", null);
         if(cursor.moveToFirst()){
             for(cursor.moveToFirst(); !cursor.isAfterLast();cursor.moveToNext()){
                 Word word = new Word(cursor.getString(1),cursor.getString(2));

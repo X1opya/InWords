@@ -1,4 +1,4 @@
-package Main;
+package com.x1opya.inwords.Main;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -21,9 +21,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.vk.sdk.VKSdk;
 import com.x1opya.inwords.Login.Data.CurrentUser;
 import com.x1opya.inwords.Login.SocialNetworksAuthentication;
-import com.x1opya.inwords.R;
-import Main.SearchUI.SearchFragment;
+import com.x1opya.inwords.Main.SearchUI.SearchAndDictionaryFragment;
 import com.x1opya.inwords.Login.Data.UserLocalData;
+import com.x1opya.inwords.R;
 
 import java.io.File;
 
@@ -128,8 +128,12 @@ public class MainTabActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
+            SearchAndDictionaryFragment search = new SearchAndDictionaryFragment();
+            SearchAndDictionaryFragment dictionary = new SearchAndDictionaryFragment();
             if(position==0)
-                return SearchFragment.newInstance();
+                return search.newInstance(true);
+            else if(position==1)
+                return dictionary.newInstance(false);
             else
                 return PlaceholderFragment.newInstance(position + 1);
         }
@@ -137,7 +141,7 @@ public class MainTabActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 4;
         }
     }
     //-------------------------------------------------------
