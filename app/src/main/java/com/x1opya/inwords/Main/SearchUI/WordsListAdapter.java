@@ -12,9 +12,10 @@ import android.widget.TextView;
 import com.x1opya.inwords.R;
 import com.x1opya.inwords.Main.Data.Word;
 
+import java.util.Collection;
 import java.util.List;
 
-public class WordsListAdapter extends ArrayAdapter<Word>{
+public class WordsListAdapter extends ArrayAdapter<Word> implements AdaptersBehavior{
 
     private int layout;
     private List<Word> list;
@@ -38,4 +39,21 @@ public class WordsListAdapter extends ArrayAdapter<Word>{
         tvTranslate.setText(list.get(position).getTranslate());
         return view;
     }
+
+    @Override
+    public void addAll(Word... items) {
+        super.addAll(items);
+    }
+
+    @Override
+    public void clear() {
+        super.clear();
+    }
+
+    @Override
+    public void addAll(@NonNull Collection<? extends Word> collection) {
+        super.addAll(collection);
+    }
+
+
 }

@@ -16,4 +16,9 @@ public class Word {
     public String getTranslate() {
         return translate;
     }
+
+    @Override
+    public String toString() {
+        return word+":"+translate;
+    }
 }

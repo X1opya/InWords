@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context="com.x1opya.inwords.Main.SearchUI.SearchAndDictionaryFragment"
     android:background="@color/backGroud"
@@ -43,11 +44,10 @@
         android:background="@color/foreground_serch"
         android:visibility="gone">
         <ScrollView
-            android:id="@+id/svRecycler"
+            android:id="@+id/sv_recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true"
-            android:visibility="gone">
+            android:fillViewport="true">
             <!--если запускается фрагмент серч наполняем лист,-->
             <!--иначе ресайклер-->
             <!--поиск ограничен на элементы, словарь - нет-->
@@ -57,10 +57,11 @@
                 android:layout_height="match_parent"
                 android:dividerHeight="5dp"
                 android:padding="5dp"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                 ></android.support.v7.widget.RecyclerView>
         </ScrollView>
         <ScrollView
-            android:id="@+id/svList"
+            android:id="@+id/sv_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true"

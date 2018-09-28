@@ -38,17 +38,14 @@ import java.util.List;
  */
 public class SearchAndDictionaryFragment extends Fragment {
 
-    private WordsListAdapter lvAdapter;
-    private WordsListAdapter rvAdapter;
-    private RecyclerView recyclerView;
-    private ScrollView svList;
-    private ScrollView svRecycler;
+
+
     private List<Word> list;
     private EditText etSearch;
-    private Button animView;
     private View view;
     private LinearLayout listContainer;
     private Animation animation;
+    WordsManager manager;
 
     private boolean isSearch = true;
 
@@ -67,6 +64,7 @@ public class SearchAndDictionaryFragment extends Fragment {
     public SearchAndDictionaryFragment newInstance(boolean isSear) {
 
         isSearch = isSear;
+
         Log.println(Log.ASSERT,"","Получатель = "+isSearch + " отправитель = " + isSear);
         //SearchAndDictionaryFragment fragment = new SearchAndDictionaryFragment();
         Bundle args = new Bundle();
@@ -78,9 +76,6 @@ public class SearchAndDictionaryFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //etSearch.setAnimation(animation);
-
-
     }
 
     @Override
@@ -89,36 +84,48 @@ public class SearchAndDictionaryFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_search_and_dict, container, false);
         listContainer = view.findViewById(R.id.liner_container);
         etSearch = view.findViewById(R.id.search_view);
-        animView = view.findViewById(R.id.anim_view);
-        Log.println(Log.ASSERT,this.toString(),"Мод поиска = "+isSearch);
+        Button animView = view.findViewById(R.id.anim_view);
+        manager = new WordsManager(getContext());
         if(isSearch){
             animation = AnimationUtils.loadAnimation(getContext(),R.anim.serchview);
-            ListView listView = view.findViewById(R.id.list);
-            svList = view.findViewById(R.id.svList);
+
+            ScrollView svList = view.findViewById(R.id.sv_list);
             svList.setVisibility(View.VISIBLE);
-            searchAnim();
-            initListView(listView);
-            initSerch();
+            searchAnim(animView);
+            initSerch(initListView());
         }
         else{
+
+            List<Word> allData= manager.getLocalBase();
             etSearch.setVisibility(View.VISIBLE);
-            svRecycler = view.findViewById(R.id.svRecycler);
+            ScrollView svRecycler = view.findViewById(R.id.sv_recycler);
             svRecycler.setVisibility(View.VISIBLE);
+            Log.println(Log.ASSERT,getContext().toString(),"Видимость контенера рес" + svRecycler.getVisibility());
             animView.setVisibility(View.GONE);
             listContainer.setVisibility(View.VISIBLE);
-            recyclerView = view.findViewById(R.id.recycler_view);
+            initSerch(initRecyclerView(allData));
         }
         // Inflate the layout for this fragment
         return view;
     }
 
-    private void initListView(ListView listView) {
+    private AdaptersBehavior initRecyclerView(List<Word> allData) {
+        Log.println(Log.ASSERT,getContext().toString(),"Список" + allData.toString());
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
+        WordsRecyclerAdapter adapter = new WordsRecyclerAdapter(getContext(),allData);
+        recyclerView.setAdapter(adapter);
+        return adapter;
+    }
+
+    private AdaptersBehavior initListView() {
+        ListView listView = view.findViewById(R.id.list);
         list = new ArrayList<>();
         WordsListAdapter adapter = new WordsListAdapter(getActivity().getBaseContext(), R.layout.search_item,list);
         listView.setAdapter(adapter);
+        return adapter;
     }
 
-    private void searchAnim(){
+    private void searchAnim(final Button animView){
         animView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -147,7 +154,7 @@ public class SearchAndDictionaryFragment extends Fragment {
         });
     }
 
-    private void initSerch(){
+    private void initSerch(final AdaptersBehavior adapter){
         final WordsManager wordsManager = new WordsManager(getActivity().getBaseContext());
         etSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -161,14 +168,29 @@ public class SearchAndDictionaryFragment extends Fragment {
                 //Индекс в кодировке A(английская) = 10, Z = 35
                 //Русские символы все = -1
                 //Если ввод начался с английской буквы - обращайемся к поиску английских слов
-                adapter.clear();
-                boolean isEng = false;
-                isEng = isEngInput(charSequence.toString());
-                List<Word> newList = wordsManager.getWordsToSearch(charSequence.toString(),isEng);//получаем список имеющихся слов с базы
-                if(newList!=null) {
-                    adapter.addAll(newList);
-                    adapter.notifyDataSetChanged();
+
+                boolean isEng = isEngInput(charSequence.toString());
+                if(isSearch){
+                    adapter.clear();
+                    List<Word> newList = wordsManager.getWordsToSearch(charSequence.toString(),isEng);//получаем список имеющихся слов с базы
+                    if(newList!=null) {
+                        adapter.addAll(newList);
+                        adapter.notifyDataSetChanged();
+                    }
                 }
+                else
+                {
+                    adapter.clear();
+                    List<Word> newList = wordsManager.getWordsToSearch(charSequence.toString(),isEng);//получаем список имеющихся слов с базы
+                    if(newList!=null) {
+                        adapter.addAll(newList);
+                        adapter.notifyDataSetChanged();
+                    }
+                    if(charSequence.toString().isEmpty()) {
+                        adapter.addAll(manager.getLocalBase());
+                    }
+                }
+
             }
 
             @Override
@@ -179,7 +201,7 @@ public class SearchAndDictionaryFragment extends Fragment {
     }
 
     private boolean isEngInput(String input){
-        if(input.isEmpty() && Character.getNumericValue(input.charAt(0))>0)
+        if(!input.isEmpty() && Character.getNumericValue(input.charAt(0))>0)
             return  true;
         else//русских
             return false;

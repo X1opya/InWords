@@ -3,6 +3,8 @@ package com.x1opya.inwords.Main.Data;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.x1opya.inwords.data.BaseHelper;
 
@@ -42,5 +44,21 @@ public class WordsManager {
 
     public void closeBase(){
         db.close();
+    }
+
+    public List<Word> getLocalBase() {
+        Cursor cursor = db.rawQuery("SELECT * FROM words",null);
+        List<Word> allWords = new ArrayList<>();
+            for(cursor.moveToFirst(); !cursor.isAfterLast();cursor.moveToNext()){
+                Log.println(Log.ASSERT,getClass().toString(),"шаг цикла");
+                Word word = new Word(cursor.getString(1),cursor.getString(2));
+                allWords.add(word);
+            }
+            if(allWords.isEmpty()){
+                cursor.close();
+                return null;
+            }
+            cursor.close();
+        return allWords;
     }
 }
